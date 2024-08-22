@@ -1,6 +1,8 @@
 **EXPLORATORY DATA ANALYSIS ON ALL FATAL COMMERCIAL JETLINER INCIDENTS**
 
+
 Database used: [ASN](https://asn.flightsafety.org/asndb/types/CJ)
+
 Used Selenium library to scrape Javascript-generated HTML site 
 Below is the code used for scraping and formatting my .csv file
 **[Scraping code](docs/ASNscraper.ipynb)**
@@ -9,7 +11,8 @@ Below is the code used for scraping and formatting my .csv file
 
 As part of my exploratory data analysis, I wanted to ask 20 important and relevant questions relating to fatal commerical aviation incidents that have occurred worldwide.
 The questions include:
-- *Are certain aircraft models statistically more dangerous to fly on?*
+
+- *Are certain aircraft models/manufacturers statistically more dangerous to fly on?*
 - *Is there a correlation between aircraft age and likelihood of being in a fatal accident?*
 - *Does time of day have an effect on fatal plane crashes?*
 - *What was the deadliest year in commerical aviation?*
