@@ -21,4 +21,4 @@ The questions include:
 - *What are some of the most frequent causes of commercial plane crashes?*
 
 
-To answer these questions, I examined the **[dataset](cleaned_asndb.csv)** and conducted data analysis using significance tests, linear regression, time series analysis, and NLP. The full report can be viewed with my PDF file and I also created a page with dashboards using Microsoft Power BI.
+To answer these questions, I examined the **[dataset](final_cleaned_asndb.csv)** and conducted data analysis using significance tests, linear regression, time series analysis, and NLP. The full report,  with dashboards created using Microsoft Power BI, can be viewed on my webpage and I also created a page where the user can query my PostgreSQL database to filter and sort incidents. 
