@@ -1,4 +1,5 @@
 {
+  "homepage": "https://aw4630.github.io/plane-crash-eda",
   "name": "planecrasheda",
   "version": "0.1.0",
   "private": true,
@@ -21,7 +22,9 @@
     "start": "PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
