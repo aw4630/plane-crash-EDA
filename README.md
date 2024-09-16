@@ -13,8 +13,7 @@ As part of my exploratory data analysis, I wanted to ask 20 important and releva
 The questions include:
 
 - *Are certain aircraft models/manufacturers statistically more dangerous to fly on?*
-- *Is there a correlation between aircraft age and likelihood of being in a fatal accident?*
-- *Does time of day have an effect on fatal plane crashes?*
+- *Is there a correlation between aircraft hours and likelihood of being in a fatal accident?*
 - *What was the deadliest year in commerical aviation?*
 - *During what phase of flight (e.g., Takeoff, Landing, En route) are fatal incidents most frequent?* 
 - *Does phase of flight impact severity of the incident (# of fatalities)?* 
