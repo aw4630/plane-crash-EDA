@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.js": "/plane-crash-EDA/static/js/main.dfb2e5fa.js",
+    "main.js": "/plane-crash-EDA/static/js/main.4fc84304.js",
     "static/media/ntsb.jpeg": "/plane-crash-EDA/static/media/ntsb.5629df80a76689b90a90.jpeg",
     "static/media/asndb.png": "/plane-crash-EDA/static/media/asndb.1ce668884d0c2d7510f1.png",
     "static/media/crash.jpeg": "/plane-crash-EDA/static/media/crash.256b98e8ea31eb0eba22.jpeg",
     "index.html": "/plane-crash-EDA/index.html",
-    "main.dfb2e5fa.js.map": "/plane-crash-EDA/static/js/main.dfb2e5fa.js.map"
+    "main.4fc84304.js.map": "/plane-crash-EDA/static/js/main.4fc84304.js.map"
   },
   "entrypoints": [
-    "static/js/main.dfb2e5fa.js"
+    "static/js/main.4fc84304.js"
   ]
 }
