@@ -1,40 +1,10 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'planecrasheda.claaskamsdc4.us-east-2.rds.amazonaws.com/api';
 
-export const fetchIncidents = async () => {
+export const fetchIncidents = async (params) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/incidents`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching incidents:', error);
-    throw error;
-  }
-};
-
-export const searchIncidentsByKeyword = async (keyword) => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/incidents/search?keyword=${keyword}`);
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching incidents:', error);
-      throw error;
-    }
-  };
-
-export const getIncidentsBySort = async (sortCriteria) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/incidents/sort?sortBy=${sortCriteria}`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching incidents:', error);
-    throw error;
-  }
-};
-
-export const getIncidentsByFilter = async (model) => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/incidents/filter?model=${model}`);
+    const response = await axios.get(`${API_BASE_URL}/incidents`, { params });
     return response.data;
   } catch (error) {
     console.error('Error fetching incidents:', error);
@@ -43,4 +13,6 @@ export const getIncidentsByFilter = async (model) => {
 };
 
 
-
+export default {
+  fetchIncidents,
+};

@@ -4,7 +4,9 @@ const incidentsRoutes = require('./src/api/incidents');  // Import the incidents
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://aw4630.github.io'
+}));
 app.use(express.json()); // Middleware to parse JSON bodies
 
 // Use incidents routes
