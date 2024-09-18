@@ -1,4 +1,5 @@
 {
+  "homepage": "https://aw4630.github.io/plane-crash-EDA",
   "name": "planecrasheda",
   "version": "0.1.0",
   "private": true,
@@ -16,15 +17,15 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "axios": "^0.27.2",
-    "next": "latest"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "PORT=3001 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -47,8 +48,6 @@
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/pg": "^8.11.8",
-    "gh-pages": "^6.1.1",
-    "eslint": "8.0.1",
-    "eslint-config-next": "12.0.0"
+    "gh-pages": "^6.1.1"
   }
 }

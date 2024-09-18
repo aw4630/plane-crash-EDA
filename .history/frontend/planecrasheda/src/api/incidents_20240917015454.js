@@ -1,16 +1,28 @@
-import pool from '../../db';  // PostgreSQL connection pool
+const express = require('express');
+const cors = require('cors');
+const pool = require('../../db');  // Correct path from incidents.js to the db directory containing 'index.js' connection to PostgreSQL server
+const router = express.Router();
 
-// Disable caching for API responses (Next.js automatically handles headers)
-export default async function handler(req, res) {
+router.use(cors());
+router.use(express.json()); // Middleware to parse JSON bodies
+
+// Disable caching for API responses
+router.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
+
+// Define a route to get all incidents with sorting, searching, and filtering
+router.get('/api/incidents', async (req, res) => {
   const sortOption = req.query.sort || 'date-desc';
   const keyword = req.query.keyword || '';
-  const type = req.query.type || '';  // Aircraft type filter
+  const type = req.query.type || ''; // aircraft type filer
   const ownerOperator = req.query.ownerOperator || '';  // Owner/Operator filter
   const location = req.query.location || '';  // Location filter
   const phase = req.query.phase || '';  // Phase filter
   const nature = req.query.nature || '';  // Nature filter
-  const departure = req.query.departure || '';  // Departure airport filter
-  const destination = req.query.destination || '';  // Destination airport filter
+  const departure = req.query.departure || ''; // Departure airport filter
+  const destination = req.query.destination || ''; // Destintaion airport filter
   const primaryCause = req.query.primaryCause || '';  // Primary Cause filter
 
   let sortQuery = '';
@@ -31,7 +43,7 @@ export default async function handler(req, res) {
       sortQuery = 'ORDER BY "Fatalities" ASC';
       break;
     default:
-      sortQuery = 'ORDER BY "Date" DESC'; // Default: sort newest to oldest
+      sortQuery = 'ORDER BY "Date" DESC'; // Let default sort from newest-oldest incidents
   }
 
   // Search keyword in Narrative column
@@ -66,24 +78,25 @@ export default async function handler(req, res) {
 
   // Filtering by Departure/Destination airports
   if (departure) {
-    searchQuery += ` AND LOWER("Departure airport") LIKE LOWER ('%${departure}%')`;
+    searchQuery += ` AND LOWER("Departure airport") LIKE LOWER ('%${departure}%') `
   }
 
   if (destination) {
-    searchQuery += ` AND LOWER("Destination airport") LIKE LOWER ('%${destination}%')`;
+    searchQuery += ` AND LOWER("Destination airport") LIKE LOWER ('%${destination}%') `
   }
 
   // Filtering by Primary Cause
   if (primaryCause) {
-    searchQuery += ` AND "Primary cause" = '${primaryCause}'`;  // Exact match for primary cause
+    searchQuery += ` AND "Primary cause" = '${primaryCause}'`;  // Use exact match for primary cause
   }
 
   try {
-    // Query the PostgreSQL database using the constructed searchQuery and sortQuery
     const allIncidents = await pool.query(`SELECT * FROM database ${searchQuery} ${sortQuery}`);
-    res.status(200).json(allIncidents.rows);
+    res.json(allIncidents.rows);
   } catch (err) {
-    console.error('Error fetching incidents:', err);
+    console.error(err.message);
     res.status(500).json({ error: 'Server error' });
   }
-}
+});
+
+module.exports = router;

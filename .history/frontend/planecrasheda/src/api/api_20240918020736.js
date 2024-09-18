@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || '/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'planecrasheda.claaskamsdc4.us-east-2.rds.amazonaws.com/api';
 
 export const fetchIncidents = async (params) => {
   try {
