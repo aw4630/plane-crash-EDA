@@ -11,9 +11,7 @@ export default async function handler(req, res) {
     nature,
     departure,
     destination,
-    primaryCause,
-    limit = 50,    // Default limit to 50 results per page
-    page = 1       // Default to the first page
+    primaryCause
   } = req.query;
 
   const client = createClient();  // Create the database client
@@ -21,12 +19,9 @@ export default async function handler(req, res) {
   try {
     await client.connect();  // Connect to the database
 
-    let query = 'SELECT DISTINCT * FROM database';  // Use DISTINCT to remove duplicates
+    let query = 'SELECT DISTINCT * FROM database';
     const searchConditions = [];
     const queryParams = [];
-
-    // Pagination
-    const offset = (page - 1) * limit;
 
     // Sorting logic
     let sortQuery;
@@ -41,7 +36,7 @@ export default async function handler(req, res) {
         sortQuery = 'ORDER BY "Fatalities" ASC';
         break;
       default:
-        sortQuery = 'ORDER BY "Date" DESC'; // Default sorting
+        sortQuery = 'ORDER BY "Date" DESC';  // Default sorting
     }
 
     // Filtering logic (each condition gets added to `searchConditions`)
@@ -86,20 +81,17 @@ export default async function handler(req, res) {
       query += ' WHERE ' + searchConditions.join(' AND ');
     }
 
-    query += ` ${sortQuery} LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;  // Add the LIMIT and OFFSET
-
-    queryParams.push(limit);  // Add limit to the query params
-    queryParams.push(offset);  // Add offset to the query params
+    query += ` ${sortQuery}`;  // Add the ORDER BY clause
 
     // Execute the query
     const { rows } = await client.query(query, queryParams);
     
-    res.status(200).json(rows);
+    res.status(200).json(rows);  // Return all rows
   } catch (error) {
-    console.error('Error querying incidents:', error); // Detailed logging
+    console.error('Error querying incidents:', error);  // Detailed logging
     res.status(500).json({
       error: 'Error querying incidents',
-      details: error.message,  // Include error details in the response
+      details: error.message  // Include error details in the response
     });
   } finally {
     await client.end();  // Close the connection

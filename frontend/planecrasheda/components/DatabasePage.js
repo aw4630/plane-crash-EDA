@@ -16,11 +16,14 @@ function DatabasePage() {
   const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState('');
   const [primaryCause, setPrimaryCause] = useState('');
-  const [searchSubmitted, setSearchSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);  // Loading state for sorting
+  const [searchSubmitted, setSearchSubmitted] = useState(false);  // State to handle form submissions
 
+  // Fetch incidents when filters or sorting change
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
+        setLoading(true);  // Set loading to true when fetching starts
         const response = await axios.get('/api/incidents', {
           params: {
             sort: sortOption,
@@ -33,25 +36,28 @@ function DatabasePage() {
             departure,
             destination,
             primaryCause,
-            timestamp: new Date().getTime()
-          }
+            timestamp: new Date().getTime(),
+          },
         });
         setIncidents(response.data);
-        setSearchSubmitted(false);
       } catch (err) {
         console.error('Error fetching incidents:', err);
+      } finally {
+        setLoading(false);  // Hide the spinner after fetching data
+        setSearchSubmitted(false);  // Reset the search submitted state
       }
     };
 
-    if (searchSubmitted || sortOption) {
-      fetchIncidents();
-    }
-  }, [sortOption, searchSubmitted, keyword, type, ownerOperator, location, phase, nature, departure, destination, primaryCause]);
-
+    fetchIncidents();
+  }, [sortOption, keyword, type, ownerOperator, location, phase, nature, departure, destination, primaryCause]);
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    setSearchSubmitted(true);
+    setSearchSubmitted(true);  // Trigger search on form submission
+  };
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
   };
 
   const formatDate = (dateString) => {
@@ -59,12 +65,15 @@ function DatabasePage() {
     return date.toISOString().split('T')[0];
   };
 
-  const handleSortChange = (e) => {
-    setSortOption(e.target.value);
-  };
 
   return (
     <div style={{ padding: '0.5px' }}>
+      {/* Loading spinner */}
+      {loading && (
+        <div className="spinner-overlay">
+          <div className="spinner"></div>
+        </div>
+      )}
       <div style={{
         backgroundImage: `url('https://upload.wikimedia.org/wikipedia/commons/1/1e/Boeing_747-438_-_Qantas_%28VH-OJR%29_%282%29.JPG')`,
         backgroundSize: 'cover',
@@ -256,7 +265,7 @@ function DatabasePage() {
         </div>
       </form>
     </div>
-      
+    
       <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '5px' }}>
         <thead>
           <tr>
@@ -348,6 +357,33 @@ function DatabasePage() {
           ))}
         </tbody>
       </table>
+      
+      {/* CSS elements*/}
+      <style jsx>{`
+        .spinner-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.8);  /* Translucent background */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;  /* On top of everything */
+        }
+        .spinner {
+          border: 6px solid rgba(0, 0, 0, 0.1);
+          border-left-color: #6f42c1;
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+          animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,7 +1,1 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/api/incidents": "pages/api/incidents.js",
-  "/database": "pages/database.js"
-}
+{"/_error":"pages/_error.js","/analysis":"pages/analysis.html","/_app":"pages/_app.js","/api/incidents":"pages/api/incidents.js","/database":"pages/database.html","/":"pages/index.html","/api/api":"pages/api/api.js","/_document":"pages/_document.js","/404":"pages/404.html"}
