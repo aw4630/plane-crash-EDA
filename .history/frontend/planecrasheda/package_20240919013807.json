@@ -1,0 +1,16 @@
+{
+  "name": "plane-crash-eda",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "axios": "latest",
+    "@vercel/postgres": "latest"
+  }
+}

@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const incidentsRoutes = require('./pages/api/incidents');  // Import the incidents routes
+const incidentsRoutes = require('./src/api/incidents');  // Import the incidents routes
 
 const app = express();
 
