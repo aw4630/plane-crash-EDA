@@ -7,10 +7,8 @@ function DataAnalysisPage() {
       <h1>Data Analysis Page</h1>
       {/*  Data Analysis Content Here */}
       <div style={{ marginTop: '20px' }}>
-        <Link href="/">
-          <a style={{ fontSize: '18px', textDecoration: 'none' }}>
+        <Link href="/" style={{ fontSize: '18px', textDecoration: 'none' }}>
             Back to Home
-          </a>
         </Link>
       </div>
     </div>

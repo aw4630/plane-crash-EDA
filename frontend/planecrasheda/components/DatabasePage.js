@@ -74,10 +74,8 @@ function DatabasePage() {
         backgroundColor: 'rgba(255, 255, 255, 0.92)',
         backgroundBlendMode: 'overlay'
       }}>
-        <Link href="/">
-          <a style={{ fontSize: '20px', fontWeight: 'bold', color: '#6f42c1' }}>
+        <Link href="/" style={{ fontSize: '20px', fontWeight: 'bold', color: '#6f42c1' }}>
             Back to Home
-          </a>
         </Link>
 
    

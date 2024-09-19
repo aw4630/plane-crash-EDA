@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     env: {
-      POSTGRES_URL: process.env.POSTGRES_URL, 
+        NEXT_PUBLIC__URL: process.env.NEXT_PUBLIC__URL, 
     },
   };
   

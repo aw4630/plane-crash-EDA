@@ -12,9 +12,9 @@ function HomePage() {
       <div style={{ textAlign: 'center' }}>
         <h1>Welcome to my plane crash exploratory data analysis</h1>
         <p>Full-stack web app designed by Alan Wu 
-          <Link href="https://github.com/aw4630/plane-crash-EDA">
-            <a style={{ fontSize: '12px', fontWeight: 'bold' }}>(Github)</a>
-          </Link>
+        <a href="https://github.com/aw4630/plane-crash-EDA" style={{ fontSize: '12px', fontWeight: 'bold' }} target="_blank" rel="noopener noreferrer">
+              (Github)
+          </a>
         </p>
 
         <p style={{ fontSize: '10px' }}>All images are public domain</p>
@@ -29,7 +29,7 @@ function HomePage() {
         <div style={{ display: 'flex', justifyContent: 'center', gap: '50px', marginTop: '20px' }}>
           <div style={{ textAlign: 'center', flex: 1 }}>
             <Link href="/analysis">
-              <a className="highlight-box" style={{
+              <span className="highlight-box" style={{
                 fontSize: '50px',
                 fontWeight: 'bold',
                 color: '#000',
@@ -38,7 +38,7 @@ function HomePage() {
                 display: 'block',
               }}>
                 Data Analysis Page
-              </a>
+              </span>
             </Link>
             <p style={{ marginTop: '7px', fontSize: '20px' }}>
               <strong>Data analysis of all fatal commercial jetliner incidents</strong>
@@ -55,7 +55,7 @@ function HomePage() {
           {/* Database Section */}
           <div style={{ textAlign: 'center', flex: 1 }}>
             <Link href="/database">
-              <a className="highlight-box" style={{
+              <span className="highlight-box" style={{
                 fontSize: '50px',
                 fontWeight: 'bold',
                 color: '#000',
@@ -64,7 +64,7 @@ function HomePage() {
                 display: 'block',
               }}>
                 Database Page
-              </a>
+              </span>
             </Link>
             <p style={{ marginTop: '7px', fontSize: '20px' }}>
               <strong>Explore all the recorded fatal commercial jetliner incidents</strong>

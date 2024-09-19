@@ -1,0 +1,10 @@
+# Created by Vercel CLI
+NEXT_PUBLIC__DATABASE="verceldb"
+NEXT_PUBLIC__HOST="ep-rough-violet-a4zs1jqb-pooler.us-east-1.aws.neon.tech"
+NEXT_PUBLIC__PASSWORD="XZu5Tny3OGDi"
+NEXT_PUBLIC__PRISMA_URL="postgres://default:XZu5Tny3OGDi@ep-rough-violet-a4zs1jqb-pooler.us-east-1.aws.neon.tech/verceldb?pgbouncer=true&connect_timeout=15&sslmode=require"
+NEXT_PUBLIC__URL="postgres://default:XZu5Tny3OGDi@ep-rough-violet-a4zs1jqb-pooler.us-east-1.aws.neon.tech/verceldb?sslmode=require"
+NEXT_PUBLIC__URL_NON_POOLING="postgres://default:XZu5Tny3OGDi@ep-rough-violet-a4zs1jqb.us-east-1.aws.neon.tech/verceldb?sslmode=require"
+NEXT_PUBLIC__URL_NO_SSL="postgres://default:XZu5Tny3OGDi@ep-rough-violet-a4zs1jqb-pooler.us-east-1.aws.neon.tech/verceldb"
+NEXT_PUBLIC__USER="default"
+key="pass123"

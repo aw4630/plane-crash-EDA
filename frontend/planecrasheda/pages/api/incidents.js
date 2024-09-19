@@ -1,81 +1,107 @@
-//import pool from '../../db';  // PostgreSQL connection pool
-import { sql } from '@vercel/postgres';
+import { createClient } from '@vercel/postgres';
 
 export default async function handler(req, res) {
-  const { sort, keyword, type, ownerOperator, location, phase, nature, departure, destination, primaryCause } = req.query;
+  const {
+    sort = 'date-desc',
+    keyword,
+    type,
+    ownerOperator,
+    location,
+    phase,
+    nature,
+    departure,
+    destination,
+    primaryCause,
+    limit = 50,    // Default limit to 50 results per page
+    page = 1       // Default to the first page
+  } = req.query;
 
-  let sortQuery = '';
-  let searchQuery = 'WHERE 1=1'; // Default WHERE clause that is always true, simplifies query concatenation
-
-  // Sorting logic
-  switch (sortOption) {
-    case 'date-desc':
-      sortQuery = 'ORDER BY "Date" DESC';
-      break;
-    case 'date-asc':
-      sortQuery = 'ORDER BY "Date" ASC';
-      break;
-    case 'fatalities-desc':
-      sortQuery = 'ORDER BY "Fatalities" DESC';
-      break;
-    case 'fatalities-asc':
-      sortQuery = 'ORDER BY "Fatalities" ASC';
-      break;
-    default:
-      sortQuery = 'ORDER BY "Date" DESC'; // Default: sort newest to oldest
-  }
-
-  // Search keyword in Narrative column
-  if (keyword) {
-    searchQuery += ` AND LOWER("Narrative") LIKE LOWER('%${keyword}%')`;
-  }
-
-  // Filtering by Aircraft type
-  if (type) {
-    searchQuery += ` AND LOWER("Type") LIKE LOWER ('%${type}%')`;
-  }
-
-  // Filtering by Owner/Operator
-  if (ownerOperator) {
-    searchQuery += ` AND LOWER("Owner/operator") LIKE LOWER('%${ownerOperator}%')`;
-  }
-
-  // Filtering by Location
-  if (location) {
-    searchQuery += ` AND LOWER("Location") LIKE LOWER('%${location}%')`;
-  }
-
-  // Filtering by Phase
-  if (phase) {
-    searchQuery += ` AND LOWER("Phase") LIKE LOWER('%${phase}%')`;  
-  }
-
-  // Filtering by Nature
-  if (nature) {
-    searchQuery += ` AND LOWER("Nature") LIKE LOWER('%${nature}%')`;  
-  }
-
-  // Filtering by Departure/Destination airports
-  if (departure) {
-    searchQuery += ` AND LOWER("Departure airport") LIKE LOWER ('%${departure}%')`;
-  }
-
-  if (destination) {
-    searchQuery += ` AND LOWER("Destination airport") LIKE LOWER ('%${destination}%')`;
-  }
-
-  // Filtering by Primary Cause
-  if (primaryCause) {
-    searchQuery += ` AND "Primary cause" = '${primaryCause}'`;  // Exact match for primary cause
-  }
+  const client = createClient();  // Create the database client
 
   try {
-    const result = await sql`
-      SELECT * FROM database ${sql(searchQuery)} ${sql(sortQuery)}
-    `;
-    res.status(200).json(result.rows);
+    await client.connect();  // Connect to the database
+
+    let query = 'SELECT DISTINCT * FROM database';  // Use DISTINCT to remove duplicates
+    const searchConditions = [];
+    const queryParams = [];
+
+    // Pagination
+    const offset = (page - 1) * limit;
+
+    // Sorting logic
+    let sortQuery;
+    switch (sort) {
+      case 'date-asc':
+        sortQuery = 'ORDER BY "Date" ASC';
+        break;
+      case 'fatalities-desc':
+        sortQuery = 'ORDER BY "Fatalities" DESC';
+        break;
+      case 'fatalities-asc':
+        sortQuery = 'ORDER BY "Fatalities" ASC';
+        break;
+      default:
+        sortQuery = 'ORDER BY "Date" DESC'; // Default sorting
+    }
+
+    // Filtering logic (each condition gets added to `searchConditions`)
+    if (keyword) {
+      searchConditions.push(`LOWER("Narrative") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${keyword}%`);
+    }
+    if (type) {
+      searchConditions.push(`LOWER("Type") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${type}%`);
+    }
+    if (ownerOperator) {
+      searchConditions.push(`LOWER("Owner/operator") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${ownerOperator}%`);
+    }
+    if (location) {
+      searchConditions.push(`LOWER("Location") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${location}%`);
+    }
+    if (phase) {
+      searchConditions.push(`LOWER("Phase") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${phase}%`);
+    }
+    if (nature) {
+      searchConditions.push(`LOWER("Nature") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${nature}%`);
+    }
+    if (departure) {
+      searchConditions.push(`LOWER("Departure airport") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${departure}%`);
+    }
+    if (destination) {
+      searchConditions.push(`LOWER("Destination airport") LIKE LOWER($${queryParams.length + 1})`);
+      queryParams.push(`%${destination}%`);
+    }
+    if (primaryCause) {
+      searchConditions.push(`"Primary cause" = $${queryParams.length + 1}`);
+      queryParams.push(primaryCause);
+    }
+
+    if (searchConditions.length > 0) {
+      query += ' WHERE ' + searchConditions.join(' AND ');
+    }
+
+    query += ` ${sortQuery} LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}`;  // Add the LIMIT and OFFSET
+
+    queryParams.push(limit);  // Add limit to the query params
+    queryParams.push(offset);  // Add offset to the query params
+
+    // Execute the query
+    const { rows } = await client.query(query, queryParams);
+    
+    res.status(200).json(rows);
   } catch (error) {
-    console.error('Error querying incidents:', error);
-    res.status(500).json({ error: 'Error querying incidents' });
+    console.error('Error querying incidents:', error); // Detailed logging
+    res.status(500).json({
+      error: 'Error querying incidents',
+      details: error.message,  // Include error details in the response
+    });
+  } finally {
+    await client.end();  // Close the connection
   }
 }
