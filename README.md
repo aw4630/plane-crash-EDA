@@ -5,7 +5,7 @@ Database used: [ASN](https://asn.flightsafety.org/asndb/types/CJ)
 *Used Selenium library to scrape Javascript-generated HTML site 
 Below is the code used for scraping and formatting my .csv file*
 
-**[Scraping code](ASNscraper.ipynb)**
+**[Scraping code](backend/ASNscraper.ipynb)**
 
 
 
