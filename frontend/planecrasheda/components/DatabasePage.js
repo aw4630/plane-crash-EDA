@@ -16,10 +16,9 @@ function DatabasePage() {
   const [departure, setDeparture] = useState('');
   const [destination, setDestination] = useState('');
   const [primaryCause, setPrimaryCause] = useState('');
-  const [loading, setLoading] = useState(false);  // Loading state for sorting
-  const [searchSubmitted, setSearchSubmitted] = useState(false);  // State to handle form submissions
+  const [loading, setLoading] = useState(false);  // Loading state
 
-  // Fetch incidents when filters or sorting change
+  // Fetch incidents data when filters or sorting change
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
@@ -36,15 +35,14 @@ function DatabasePage() {
             departure,
             destination,
             primaryCause,
-            timestamp: new Date().getTime(),
-          },
+            timestamp: new Date().getTime()
+          }
         });
-        setIncidents(response.data);
+        setIncidents(response.data);  // Update incidents with the fetched data
       } catch (err) {
         console.error('Error fetching incidents:', err);
       } finally {
-        setLoading(false);  // Hide the spinner after fetching data
-        setSearchSubmitted(false);  // Reset the search submitted state
+        setLoading(false);  // Set loading to false when fetching is done
       }
     };
 
@@ -53,7 +51,7 @@ function DatabasePage() {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    setSearchSubmitted(true);  // Trigger search on form submission
+    setIncidents([]);  // Clear current incidents
   };
 
   const handleSortChange = (e) => {
@@ -64,7 +62,6 @@ function DatabasePage() {
     const date = new Date(dateString);
     return date.toISOString().split('T')[0];
   };
-
 
   return (
     <div style={{ padding: '0.5px' }}>
