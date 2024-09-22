@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || '/api';
+const API_BASE_URL = '/api';
 
 export const fetchIncidents = async (params) => {
   try {
