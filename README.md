@@ -1,8 +1,8 @@
 **FULL-STACK WEB APP AND EXPLORATORY DATA ANALYSIS OF FATAL COMMERCIAL JETLINER INCIDENTS**
 
 
-Database used: [ASN](https://asn.flightsafety.org/asndb/types/CJ)
-*Used Selenium library to scrape Javascript-generated HTML site 
+Database used: [ASN](https://asn.flightsafety.org/asndb/types/CJ)\
+*Used Selenium library to scrape Javascript-generated HTML site \
 Below is the code used for scraping and formatting my .csv file*
 
 **[Scraping code and explanation](backend/ASNscraper.ipynb)**
