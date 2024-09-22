@@ -5,8 +5,7 @@ Database used: [ASN](https://asn.flightsafety.org/asndb/types/CJ)
 *Used Selenium library to scrape Javascript-generated HTML site 
 Below is the code used for scraping and formatting my .csv file*
 
-**[Scraping code](backend/ASNscraper.ipynb)**
-
+**[Scraping code and explanation](backend/ASNscraper.ipynb)**
 
 
 As part of my exploratory data analysis, I wanted to ask 20 important and relevant questions relating to fatal commerical aviation incidents that have occurred worldwide.
@@ -20,4 +19,5 @@ The questions include:
 - *What are some of the most frequent causes of commercial plane crashes?*
 
 
-To answer these questions, I examined the **[dataset](final_cleaned_asndb.csv)** and conducted data analysis using significance tests, linear regression, time series analysis, and NLP. The full report,  with dashboards created using Microsoft Power BI, can be viewed on my webpage and I also created a page where the user can query my PostgreSQL database to filter and sort incidents. 
+To answer these questions, I examined the **[dataset](final_cleaned_asndb.csv)** and conducted data analysis using significance tests, linear regression, time series analysis, and NLP (REPORT IN PROGRESS). The full report,  with dashboards created using Microsoft Power BI, can be viewed on my full-stack webpage which includes also a page where the user can query my PostgreSQL database to filter and sort incidents. WEBSITE HERE: **(https://planecrasheda.vercel.app)**
+
