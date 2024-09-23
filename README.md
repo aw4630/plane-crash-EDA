@@ -8,7 +8,7 @@ Below is the code used for scraping and formatting my .csv file*
 **[Scraping code and explanation](backend/ASNscraper.ipynb)**
 
 
-As part of my exploratory data analysis, I wanted to ask important and relevant questions relating to fatal commerical aviation incidents that have occurred worldwide.
+As part of my exploratory data analysis, I wanted to ask important questions relating to fatal commerical aviation incidents that have occurred worldwide and provide valuable aviation safety insights.
 The questions include:
 
 - *Are certain aircraft models/manufacturers statistically more dangerous to fly on?*

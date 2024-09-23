@@ -16,7 +16,7 @@ function DataAnalysisPage() {
       </h1>
 
       <div>
-        <p> User must sign into Power BI to view data visualization dashboard</p>
+        <p> User must sign into Power BI to view my interactive data visualization dashboard</p>
       </div>
       
       {/* Embed Power BI Dashboard */}
