@@ -35,13 +35,16 @@ function HomePage() {
         {/* Film photograph style images */}
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px', marginTop: '30px', animation: 'fadeIn 1.2s ease-out' }}>
           <div className="photo-frame">
-            <Image src="/asndb.png" alt="Image 1" width={400} height={300} style={{ display: 'block' }}/>
+            <Image src="/asndb.png" alt="Image 1" width={285} height={230} style={{ display: 'block' }}/>
           </div>
           <div className="photo-frame">
-            <Image src="/ntsb.jpeg" alt="Image 2" width={400} height={300} style={{ display: 'block' }}/>
+            <Image src="/ntsb.jpeg" alt="Image 2" width={285} height={230} style={{ display: 'block' }}/>
           </div>
           <div className="photo-frame">
-            <Image src="/crash.jpeg" alt="Image 3" width={400} height={300} style={{ display: 'block' }}/>
+            <Image src="/crash.jpeg" alt="Image 3" width={285} height={230} style={{ display: 'block' }}/>
+          </div>
+          <div className="photo-frame">
+            <Image src="/twa.jpg.avif" alt="Image 4" width={285} height={230} style={{ display: 'block' }}/>
           </div>
         </div>
 
