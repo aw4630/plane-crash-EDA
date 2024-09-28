@@ -1,6 +1,12 @@
+import express from 'express';
 import { createClient } from '@vercel/postgres';
 
-export default async function handler(req, res) {
+const app = express();
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+app.get('/api/incidents', async (req, res) => {
   const {
     sort = 'date-desc',
     keyword,
@@ -11,10 +17,11 @@ export default async function handler(req, res) {
     nature,
     departure,
     destination,
-    primaryCause
+    primaryCause,
   } = req.query;
 
-  const client = createClient();  // Create the database client
+  // Create a new PostgreSQL client for this request
+  const client = createClient();
 
   try {
     await client.connect();  // Connect to the database
@@ -36,10 +43,9 @@ export default async function handler(req, res) {
         sortQuery = 'ORDER BY "Fatalities" ASC';
         break;
       default:
-        sortQuery = 'ORDER BY "Date" DESC';  // Default sorting
+        sortQuery = 'ORDER BY "Date" DESC';  
     }
 
-    // Filtering logic (each condition gets added to `searchConditions`)
     if (keyword) {
       searchConditions.push(`LOWER("Narrative") LIKE LOWER($${queryParams.length + 1})`);
       queryParams.push(`%${keyword}%`);
@@ -81,19 +87,26 @@ export default async function handler(req, res) {
       query += ' WHERE ' + searchConditions.join(' AND ');
     }
 
-    query += ` ${sortQuery}`;  // Add the ORDER BY clause
+    query += ` ${sortQuery}`; 
 
     // Execute the query
     const { rows } = await client.query(query, queryParams);
-    
-    res.status(200).json(rows);  // Return all rows
+    res.status(200).json(rows);  
   } catch (error) {
-    console.error('Error querying incidents:', error);  // Detailed logging
+    console.error('Error querying incidents:', error);  
     res.status(500).json({
       error: 'Error querying incidents',
-      details: error.message  // Include error details in the response
+      details: error.message,  
     });
   } finally {
-    await client.end();  // Close the connection
+    try {
+      await client.end();
+    } catch (e) {
+      console.error('Error closing database client:', e);
+    }
   }
-}
+});
+
+// Export the handler for Vercel
+export default (req, res) => app(req, res);
+
