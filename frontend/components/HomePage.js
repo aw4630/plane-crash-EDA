@@ -20,7 +20,7 @@ function HomePage() {
           letterSpacing: '2px',
           animation: 'fadeInDown 1s ease-out'
         }}>
-          Welcome to my Plane Crash Exploratory Data Analysis
+          Welcome to my Plane Crash Database & Exploratory Data Analysis
         </h1>
 
         <p style={{ fontSize: '20px', fontWeight: '500', marginBottom: '20px', animation: 'fadeInUp 1s ease-out' }}>
@@ -69,7 +69,7 @@ function HomePage() {
               <strong>Analyze fatal commercial jetliner incidents</strong> <br/>
               
               <i>What are the main causes of fatal plane crashes?</i> <br />
-              <i>Are certain airliner models or manufacturers statistically deadlier?</i> <br />
+              <i>Are certain airliner manufacturers statistically deadlier?</i> <br />
               <i>Is there a correlation between aircraft age and fatal incidents?</i> <br />
               <i>Is commercial aviation getting safer over time?</i> <br /> <br />
               These are questions that will be answered with statistical methods and visualized with Microsoft PowerBI.
